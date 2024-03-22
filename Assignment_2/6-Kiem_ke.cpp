@@ -5,7 +5,7 @@ using namespace std;
 
 class StringName
 {
-public:
+  public:
     string character;
     int size;
 };
@@ -28,7 +28,7 @@ int compare(const StringName &self, const StringName &other)
 
 class Good
 {
-public:
+  public:
     StringName name;
     long sell;
     Good() : name{0}, sell{1} {};
@@ -42,7 +42,7 @@ public:
 
 class Summary
 {
-public:
+  public:
     vector<Good> goods;
     long size;
     Summary()

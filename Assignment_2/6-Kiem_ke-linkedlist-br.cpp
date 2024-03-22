@@ -4,7 +4,7 @@ using namespace std;
 
 class Good
 {
-public:
+  public:
     int name;
     int sell;
     Good(int name = 0, int sell = 0)
