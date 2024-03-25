@@ -1,16 +1,44 @@
 #include <iostream>
+#include <string>
 #include <vector>
 
 using namespace std;
 
 class StringName
 {
-  public:
+public:
     string character;
     int size;
 };
 
-int compare(const StringName &self, const StringName &other)
+
+class Good
+{
+public:
+    StringName name;
+    long sell;
+    Good() : name{ 0 }, sell{ 1 } {};
+    Good(const string& inputName, const long& inputSell = 1)
+    {
+        this->name.character = inputName;
+        this->name.size = inputName.size();
+        this->sell = inputSell;
+    }
+};
+
+class Summary
+{
+public:
+    vector<Good> goods;
+    long size;
+    Summary()
+    {
+        size = 0;
+    }
+};
+
+
+int compare(const StringName& self, const StringName& other)
 {
     if (self.size > other.size)
         return 1;
@@ -22,7 +50,6 @@ int compare(const StringName &self, const StringName &other)
     {
         self_temp = stoull(self.character.substr(i, 17));
         other_temp = stoull(other.character.substr(i, 17));
-        // cout << "track:" << self_temp << " " << other_temp << endl;
         if (self_temp > other_temp)
             return 1;
         if (self_temp < other_temp)
@@ -32,7 +59,6 @@ int compare(const StringName &self, const StringName &other)
         return 0;
     self_temp = stoull(self.character.substr(i, self.size - i));
     other_temp = stoull(other.character.substr(i, other.size - i));
-    // cout << "track:" << self_temp << " " << other_temp << endl;
     if (self_temp > other_temp)
         return 1;
     if (self_temp < other_temp)
@@ -40,32 +66,23 @@ int compare(const StringName &self, const StringName &other)
     return 0;
 }
 
-class Good
-{
-  public:
-    StringName name;
-    long sell;
-    Good() : name{0}, sell{1} {};
-    Good(const string &inputName, const long &inputSell = 1)
-    {
-        this->name.character = inputName;
-        this->name.size = inputName.size();
-        this->sell = inputSell;
-    }
-};
+// int compare(const StringName& self, const StringName& other)
+// {
+//     if (self.size > other.size)
+//         return 1;
+//     if (self.size < other.size)
+//         return -1;
+//     for (int i = 0; i < self.size; ++i)
+//     {
+//         if (self.character[i] > other.character[i])
+//             return 1;
+//         if (self.character[i] < other.character[i])
+//             return -1;
+//     }
+//     return 0;
+// }
 
-class Summary
-{
-  public:
-    vector<Good> goods;
-    long size;
-    Summary()
-    {
-        size = 0;
-    }
-};
-
-int SoSanh(const Good &good_1, const Good &good_2)
+int SoSanh(const Good& good_1, const Good& good_2)
 {
     if (good_1.sell < good_2.sell)
         return 1;
@@ -75,8 +92,23 @@ int SoSanh(const Good &good_1, const Good &good_2)
     return -1;
 }
 
-long partition(vector<Good> &goods, const long &start, const long &end)
+long partition(vector<Good>& goods, const long& start, const long& end)
 {
+    // Good pivot = goods[(start + end) / 2];
+    // long i = start - 1, j = end + 1;
+    // while (true)
+    // {
+    //     do
+    //         ++i;
+    //     while (SoSanh(goods[i], pivot) < 0);
+    //     do
+    //         --j;
+    //     while (SoSanh(goods[j], pivot) > 0);
+    //     if (i >= j)
+    //         return j;
+    //     swap(goods[i], goods[j]);
+    // }
+    swap(goods[start], goods[(start + end) / 2]);
     Good pivot = goods[start];
     long count = 0;
     for (long i = start + 1; i <= end; ++i)
@@ -97,7 +129,7 @@ long partition(vector<Good> &goods, const long &start, const long &end)
     return pivotIndex;
 }
 
-void XapXep(vector<Good> &goods, const long &start, const long &end)
+void XapXep(vector<Good>& goods, const long& start, const long& end)
 {
     if (start >= end)
         return;
