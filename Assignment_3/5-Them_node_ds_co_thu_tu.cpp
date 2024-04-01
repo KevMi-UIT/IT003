@@ -11,9 +11,9 @@ using namespace std;
 
 class SinglyLinkedListNode
 {
-public:
+  public:
     int data;
-    SinglyLinkedListNode* next;
+    SinglyLinkedListNode *next;
 
     SinglyLinkedListNode(int node_data)
     {
@@ -24,9 +24,9 @@ public:
 
 class SinglyLinkedList
 {
-public:
-    SinglyLinkedListNode* head;
-    SinglyLinkedListNode* tail;
+  public:
+    SinglyLinkedListNode *head;
+    SinglyLinkedListNode *tail;
 
     SinglyLinkedList()
     {
@@ -36,7 +36,7 @@ public:
 
     void insert_node(int node_data)
     {
-        SinglyLinkedListNode* node = new SinglyLinkedListNode(node_data);
+        SinglyLinkedListNode *node = new SinglyLinkedListNode(node_data);
 
         if (!this->head)
         {
@@ -51,18 +51,18 @@ public:
     }
 };
 
-void free_singly_linked_list(SinglyLinkedListNode* node)
+void free_singly_linked_list(SinglyLinkedListNode *node)
 {
     while (node)
     {
-        SinglyLinkedListNode* temp = node;
+        SinglyLinkedListNode *temp = node;
         node = node->next;
 
         free(temp);
     }
 }
 
-void printLinkedList(SinglyLinkedListNode* head)
+void printLinkedList(SinglyLinkedListNode *head)
 {
     while (head != NULL)
     {
@@ -82,14 +82,14 @@ void printLinkedList(SinglyLinkedListNode* head)
  * };
  *
  */
-SinglyLinkedListNode* insertSortedLinkedList(SinglyLinkedListNode* head, int x)
+SinglyLinkedListNode *insertSortedLinkedList(SinglyLinkedListNode *head, int x)
 {
 
     int count = 0;
     int pos = 0;
-    SinglyLinkedListNode* node = new SinglyLinkedListNode(x);
-    SinglyLinkedListNode* p2 = head;
-    SinglyLinkedListNode* p1 = p2;
+    SinglyLinkedListNode *node = new SinglyLinkedListNode(x);
+    SinglyLinkedListNode *p2 = head;
+    SinglyLinkedListNode *p1 = p2;
     if (p2 == NULL)
         return node;
 
@@ -118,7 +118,7 @@ SinglyLinkedListNode* insertSortedLinkedList(SinglyLinkedListNode* head, int x)
 
     else
     {
-        SinglyLinkedListNode* temp = head;
+        SinglyLinkedListNode *temp = head;
         for (int i = 0; i < pos - 1; i++)
         {
             temp = temp->next;
@@ -130,7 +130,7 @@ SinglyLinkedListNode* insertSortedLinkedList(SinglyLinkedListNode* head, int x)
 }
 int main()
 {
-    SinglyLinkedList* llist = new SinglyLinkedList();
+    SinglyLinkedList *llist = new SinglyLinkedList();
     int llist_count;
     int x;
 
