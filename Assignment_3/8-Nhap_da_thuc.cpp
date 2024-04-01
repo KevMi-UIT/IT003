@@ -69,10 +69,20 @@ void Xuat(DATHUC &daThuc)
         if (temp->data->heso != 0)
         {
             hasNonZeroTerm = true;
-            if (!isFirst && temp->data->heso > 0)
-                cout << "+";
+            if (!isFirst)
+            {
+                if (temp->data->heso > 0)
+                    cout << "+";
+                else
+                    cout << "-";
+            }
+            else
+            {
+                if (temp->data->heso < 0)
+                    cout << "-";
+            }
             if (abs(temp->data->heso) != 1 || temp->data->somu == 0)
-                cout << temp->data->heso;
+                cout << abs(temp->data->heso);
             if (temp->data->somu != 0)
             {
                 cout << "x";
