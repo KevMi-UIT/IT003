@@ -8,12 +8,12 @@ typedef long long ll;
 
 int main()
 {
-    ll n;
+    unsigned long n;
     cin >> n;
 
-    ll ans = 0;
-    stack<ll> st;
-    map<ll, ll> cnt;
+    unsigned long ans = 0;
+    stack<unsigned long> st;
+    map<unsigned long, unsigned long> cnt;
 
     while (n--)
     {
@@ -23,18 +23,18 @@ int main()
 
             while (!st.empty() && x > st.top())
             {
-                cnt[st.top()]--;
+                --cnt[st.top()];
                 st.pop();
-                ans++;
+                ++ans;
             }
             if (!st.empty())
                 ans += x == st.top() ? cnt[x] + (st.size() > cnt[x]) : 1;
             st.push(x);
-            cnt[x]++;
+            ++cnt[x];
         }
     }
 
-    cout << ans << endl;
+    cout << ans;
 
     return 0;
 }
