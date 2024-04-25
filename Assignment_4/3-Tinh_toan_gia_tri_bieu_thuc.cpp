@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stack>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -14,66 +15,51 @@ int precedence(char op)
     return 0;
 }
 
-bool isOperator(char c)
-{
-    return (c == '+' || c == '-' || c == '*' || c == '/');
-}
-
-string infixToPostfix(const string &infixExpr)
+vector<char> infixToPostfix(const string &infixExpr)
 {
     stack<char> operators;
-    string postfixExpr = "";
+    vector<char> postfixExpr;
 
     for (char c : infixExpr)
     {
         if (isdigit(c))
-        {
-            postfixExpr += c; // Append operand directly to output
-        }
-        else if (isOperator(c))
-        {
-            while (!operators.empty() && operators.top() != '(' && precedence(operators.top()) >= precedence(c))
-            {
-                postfixExpr += operators.top();
-                operators.pop();
-            }
-            operators.push(c);
-        }
+            postfixExpr.push_back(c);
         else if (c == '(')
-        {
             operators.push(c);
-        }
         else if (c == ')')
-        {
-            while (!operators.empty() && operators.top() != '(')
+            while (operators.top() != '(')
             {
-                postfixExpr += operators.top();
+                postfixExpr.push_back(operators.top());
                 operators.pop();
             }
-            operators.pop(); // Remove '(' from stack
+        else if (!operators.empty() and precedence(operators.top()) >= precedence(c))
+        {
+            postfixExpr.push_back(operators.top());
+            operators.pop();
+            operators.push(c);
         }
+        else
+            operators.push(c);
     }
 
     while (!operators.empty())
     {
-        postfixExpr += operators.top();
+        // postfixExpr += operators.top();
+        postfixExpr.push_back(operators.top());
         operators.pop();
     }
 
     return postfixExpr;
 }
 
-int evaluatePostfix(const string &postfixExpr)
+long evaluatePostfix(const vector<char> &postfixExpr)
 {
-    stack<int> operands;
+    stack<long> operands;
 
     for (char c : postfixExpr)
-    {
         if (isdigit(c))
-        {
-            operands.push(c - '0'); // Push operand (convert char to int)
-        }
-        else if (isOperator(c))
+            operands.push(c - '0');
+        else
         {
             int b = operands.top();
             operands.pop();
@@ -95,17 +81,16 @@ int evaluatePostfix(const string &postfixExpr)
                 break;
             }
         }
-    }
 
-    return operands.top(); // Result is the top of the stack
+    return operands.top();
 }
 
 int main()
 {
     string infixExpr;
     getline(cin, infixExpr);
-    string postfixExpr = infixToPostfix(infixExpr);
-    int result = evaluatePostfix(postfixExpr);
+    vector<char> postfixExpr = infixToPostfix(infixExpr);
+    long result = evaluatePostfix(postfixExpr);
     cout << result << endl;
 
     return 0;
