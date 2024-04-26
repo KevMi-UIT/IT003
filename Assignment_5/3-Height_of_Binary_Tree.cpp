@@ -52,26 +52,15 @@ class Solution
     */
     int height(Node *root)
     {
-        if (root == NULL)
+        if (root == nullptr)
         {
-            return -1; // Trả về -1 nếu cây rỗng
+            return 0; // Trả về 0 nếu cây rỗng
         }
-        else if (root->left == NULL && root->right == NULL)
-        {
-            return 0;
-        }
-        else if (root->left != NULL && root->right != NULL)
-        {
-            return max(height(root->left), height(root->right)) + 1;
-        }
-        else if (root->left == NULL)
-        {
-            return 1 + height(root->right);
-        }
-        else
-        {
-            return 1 + height(root->left);
-        }
+
+        int leftHeight = height(root->left);
+        int rightHeight = height(root->right);
+
+        return max(leftHeight, rightHeight) + 1;
     }
 
 }; // End of Solution
