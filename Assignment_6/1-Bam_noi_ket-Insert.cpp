@@ -180,7 +180,7 @@ void DeleteHashtable(Hashtable &ht)
 
 int Insert(Hashtable &ht, Hocsinh x)
 {
-    if (ht.n >= ht.M * LOAD)
+    if (ht.n >= ht.M * LOAD - 1)
         return 0;
     const int index = Hash(ht, x.Maso);
     AddTail(ht.table[index], x);
