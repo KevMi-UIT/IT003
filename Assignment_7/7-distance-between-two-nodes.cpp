@@ -76,6 +76,7 @@ int distanceBetweenNodes(Node *root, int a, int b)
         return -1; // If LCA doesn't exist, return -1
     int distanceA = findDistance(lca, a, 0);
     int distanceB = findDistance(lca, b, 0);
+    // Hey this below step isn't necessary!!!
     if (distanceA == -1 || distanceB == -1)
         return -1; // If either a or b doesn't exist, return -1
     return distanceA + distanceB;
