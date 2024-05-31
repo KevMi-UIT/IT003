@@ -57,22 +57,30 @@ class Solution
                 right = NULL;
             }
     };
-
-    */
-
-    void levelOrder(Node *root)
+*/
+    int levelOrder(Node *root, int targetLevel)
     {
+        int level = 0;
         queue<Node *> nodeStack;
         nodeStack.push(root);
         while (!nodeStack.empty())
         {
-            cout << nodeStack.front()->data << " ";
-            if (nodeStack.front()->left)
-                nodeStack.push(nodeStack.front()->left);
-            if (nodeStack.front()->right)
-                nodeStack.push(nodeStack.front()->right);
-            nodeStack.pop();
+            int nodeCount = nodeStack.size();
+            if (level == targetLevel)
+                return nodeCount;
+            while (nodeCount > 0)
+            {
+                Node *cur = nodeStack.front();
+                nodeStack.pop();
+                if (cur->left)
+                    nodeStack.push(cur->left);
+                if (cur->right)
+                    nodeStack.push(cur->right);
+                nodeCount--;
+            }
+            level++;
         }
+        return 0;
     }
 }; // End of Solution
 
@@ -81,19 +89,18 @@ int main()
 
     Solution myTree;
     Node *root = NULL;
-
+    int targetLevel;
     int t;
     int data;
 
     std::cin >> t;
-
     while (t-- > 0)
     {
         std::cin >> data;
         root = myTree.insert(root, data);
     }
-
-    myTree.levelOrder(root);
+    cin >> targetLevel;
+    cout << myTree.levelOrder(root, targetLevel);
 
     return 0;
 }
